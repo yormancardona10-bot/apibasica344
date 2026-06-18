@@ -38,7 +38,7 @@ app.post('/servicios', servicioController.crear);
 app.put('/servicios/:id', servicioController.actualizar);
 app.delete('/servicios/:id', servicioController.eliminar);
 
-app.listen(8080, () => {
+app.listen(8090, () => {
   console.log("Servidor corriendo en puerto 8000");
 });
 
