@@ -20,6 +20,8 @@ conexion
 app.get('/', (req, res) => {
   res.render('pages/index.ejs');
 });
+
+app.get('/', clienteController.home);
 app.get('/clientes', clienteController.consultar);
 app.get('/clientes/:id', clienteController.obtenerPorId);
 app.post('/clientes', clienteController.crear);
@@ -32,13 +34,18 @@ app.post('/productos', productoController.crear);
 app.put('/productos/:id', productoController.actualizar);
 app.delete('/productos/:id', productoController.eliminar);
 
+
 app.get('/servicios', servicioController.consultar);
 app.get('/servicios/:id', servicioController.obtenerPorId);
 app.post('/servicios', servicioController.crear);
 app.put('/servicios/:id', servicioController.actualizar);
 app.delete('/servicios/:id', servicioController.eliminar);
 
-app.listen(8090, () => {
-  console.log("Servidor corriendo en puerto 8000");
+app.get('/formulario', clienteController.formulario);
+
+app.listen(8888, () => {
+  console.log("Servidor corriendo en puerto 8888");
 });
+
+
 
