@@ -12,28 +12,35 @@
     <main>
         <div>
             <h1>Servicios</h1>
-            <table id="tabla"> 
+            <table id="tabla">
                 <thead>
-                    <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>Duracion (minutos)</th>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Duracion (minutos)</th>
+                        <th>Acciones</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <% servicios.forEach(function(servicio) { %>
                         <tr>
-                            <th><%= servicio.nombre %></th>
-                            <th><%= servicio.precio %></th>
-                            <th><%= servicio.duracionMinutos %></th>
+                            <td><%= servicio.nombre %></td>
+                            <td><%= servicio.precio %></td>
+                            <td><%= servicio.duracionMinutos %></td>
+                            <td>
+                                <a href="/servicios/editar/<%= servicio._id %>" class="btn btn-warning btn-sm">Editar</a>
+                                <button class="btn btn-danger btn-sm" onclick="eliminar('/servicios/<%= servicio._id %>')">Eliminar</button>
+                            </td>
                         </tr>
                     <% }); %>
                 </tbody>
-            </table>            
+            </table>
         </div>
     </main>
 
     <footer>
         <%- include('../partials/footer'); %>
     </footer>
-
+<a href="/servicios/eliminar/<%= servicio._id %>" class="btn btn-danger btn-sm">Eliminar</a>
 </body>
 </html>

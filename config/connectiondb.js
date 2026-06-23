@@ -1,17 +1,9 @@
 const mongoose = require("mongoose");
 
-var conexion = "";
+const URI = process.env.MONGOURI;
 
-try {
-
-  const URI = process.env.MONGOURI;
-
-  conexion = mongoose.connect(URI);
-
-} catch (err) {
-
-  console.log(err);
-
-}
+const conexion = mongoose.connect(URI)
+  .then(() => console.log("Conexión exitosa a MongoDB"))
+  .catch(err => console.log("Error de conexión:", err));
 
 module.exports = conexion;

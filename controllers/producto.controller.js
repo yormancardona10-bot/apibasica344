@@ -11,9 +11,13 @@ exports.obtenerPorId = async (req, res) => {
 };
 
 exports.crear = async (req, res) => {
-  const data = new Producto(req.body);
-  await data.save();
-  res.json(data);
+  try {
+    const data = new Producto(req.body);
+    await data.save();
+    res.redirect('/productos');
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 exports.actualizar = async (req, res) => {
@@ -27,5 +31,5 @@ exports.actualizar = async (req, res) => {
 
 exports.eliminar = async (req, res) => {
   await Producto.findByIdAndDelete(req.params.id);
-  res.json({ mensaje: "Producto eliminado" });
+  res.redirect('/productos')
 };
