@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<div class="container mt-3">
+
+    <h2>Registrar Producto</h2>
+
+    <form action="/productos" method="POST">
+
+        <div class="mb-3">
+            <label>Nombre:</label>
+            <input
+                type="text"
+                class="form-control"
+                name="nombre"
+                required>
+        </div>
+
+        <div class="mb-3">
+            <label>Precio:</label>
+            <input
+                type="number"
+                class="form-control"
+                name="precio"
+                required>
+        </div>
+
+        <div class="mb-3">
+            <label>Stock:</label>
+            <input
+                type="number"
+                class="form-control"
+                name="stock"
+                required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Guardar Producto
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

@@ -5,44 +5,102 @@
 </head>
 <body class="container">
 
-    <header>
-        <%- include('../partials/header'); %>
-    </header>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <main>
-        <div>
-            <h1>Clientes</h1>
-            <table id="tabla" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Telefono</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% clientes.forEach(function(cliente) { %>
-                        <tr>
-                            <td><%= cliente.nombre %></td>
-                            <td><%= cliente.email %></td>
-                            <td><%= cliente.telefono %></td>
-                            <td>
-                                <a href="/clientes/editar/<%= cliente._id %>" class="btn btn-warning btn-sm">Editar</a>
-                                <button class="btn btn-danger btn-sm" onclick="eliminar('/clientes/<%= cliente._id %>')">Eliminar</button>
-                            </td>
-                        </tr>
-                    <% }); %>
-                </tbody>
-            </table>
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<main>
+    <div>
+        <h1>Clientes</h1>
+
+        <table id="tabla" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Telefono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% clientes.forEach(function(cliente) { %>
+
+                <tr>
+                    <td><%= cliente.nombre %></td>
+                    <td><%= cliente.email %></td>
+                    <td><%= cliente.telefono %></td>
+
+                    <td>
+                        <a href="/clientes/editar/<%= cliente._id %>"
+                           class="btn btn-warning btn-sm">
+                           Editar
+                        </a>
+
+                        <a href="/clientes/eliminar/<%= cliente._id %>"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('¿Deseas eliminar este cliente?')">
+                           Eliminar
+                        </a>
+
+                        <button
+                            data-bs-toggle="modal"
+                            data-bs-target="#detalleCliente<%= cliente._id %>">
+                            Ver detalle
+                        </button>
+                    </td>
+                </tr>
+
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<!-- Modales -->
+<% clientes.forEach(function(cliente) { %>
+
+<div class="modal fade"
+     id="detalleCliente<%= cliente._id %>"
+     tabindex="-1">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Detalle del Cliente
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <p><strong>Nombre:</strong> <%= cliente.nombre %></p>
+                <p><strong>Email:</strong> <%= cliente.email %></p>
+                <p><strong>Teléfono:</strong> <%= cliente.telefono %></p>
+            </div>
+
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+            </div>
+
         </div>
-    </main>
+    </div>
 
-    <footer>
-        <%- include('../partials/footer'); %>
-    </footer>
+</div>
 
-    <a href="/clientes/eliminar/<%= cliente._id %>" class="btn btn-danger btn-sm">Eliminar</a>
+<% }); %>
 
 </body>
 </html>

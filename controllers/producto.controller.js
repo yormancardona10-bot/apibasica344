@@ -33,3 +33,17 @@ exports.eliminar = async (req, res) => {
   await Producto.findByIdAndDelete(req.params.id);
   res.redirect('/productos')
 };
+
+exports.formEditar = async (req, res) => {
+  const producto = await Producto.findById(req.params.id);
+  res.render('pages/editarproducto', { producto });
+};
+
+exports.guardarEdicion = async (req, res) => {
+  await Producto.findByIdAndUpdate(req.params.id, req.body);
+  res.redirect('/productos');
+};
+
+exports.formulario = async (req, res) => {
+  res.render('pages/registrarproducto');
+};

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include('../partials/head'); %>
 </head>
+
 <body class="container">
 
     <header>
@@ -10,24 +12,6 @@
     </header>
 
     <main>
-        <div class="mt-3">
-            <h2>Registrar Producto</h2>
-            <form action="/productos" method="POST">
-                <div class="mb-3">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del producto">
-                </div>
-                <div class="mb-3">
-                    <label for="precio">Precio:</label>
-                    <input type="number" class="form-control" id="precio" name="precio" placeholder="Precio">
-                </div>
-                <div class="mb-3">
-                    <label for="stock">Stock:</label>
-                    <input type="number" class="form-control" id="stock" name="stock" placeholder="Stock">
-                </div>
-                <button type="submit" class="btn btn-primary">Registrar</button>
-            </form>
-        </div>
 
         <div class="mt-4">
             <h1>Productos</h1>
@@ -43,15 +27,65 @@
                 <tbody>
                     <% productos.forEach(function(producto) { %>
                         <tr>
-                            <td><%= producto.stock %></td>
-                            <td><%= producto.nombre %></td>
-                            <td><%= producto.precio %></td>
                             <td>
-                                <a href="/productos/editar/<%= producto._id %>" class="btn btn-warning btn-sm">Editar</a>
-                                <a href="/productos/eliminar/<%= producto._id %>" class="btn btn-danger btn-sm">Eliminar</a>
+                                <%= producto.stock %>
+                            </td>
+                            <td>
+                                <%= producto.nombre %>
+                            </td>
+                            <td>
+                                <%= producto.precio %>
+                            </td>
+                            <td>
+                                <a href="/productos/editar/<%= producto._id %>"
+                                    class="btn btn-warning btn-sm">Editar</a>
+                                <a href="/productos/eliminar/<%= producto._id %>" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('¿Deseas eliminar este cliente?')">
+                                    Eliminar
+                                </a>
+                                
+                                <button data-bs-toggle="modal" data-bs-target="#detalleProducto<%= producto._id %>">
+                                    Ver detalle
+                                </button>
                             </td>
                         </tr>
-                    <% }); %>
+                        <div class="modal fade" id="detalleProducto<%= producto._id %>" tabindex="-1">
+
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">
+                                            Detalle del Producto
+                                        </h5>
+
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                        </button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <p><strong>Nombre:</strong>
+                                            <%= producto.nombre %>
+                                        </p>
+                                        <p><strong>Precio:</strong>
+                                            <%= producto.precio %>
+                                        </p>
+                                        <p><strong>Stock:</strong>
+                                            <%= producto.stock %>
+                                        </p>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" data-bs-dismiss="modal">
+                                            Cerrar
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <% }); %>
                 </tbody>
             </table>
         </div>
@@ -62,4 +96,5 @@
     </footer>
 
 </body>
+
 </html>

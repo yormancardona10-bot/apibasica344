@@ -29,3 +29,17 @@ exports.eliminar = async (req, res) => {
   await Servicio.findByIdAndDelete(req.params.id);
   res.redirect('/servicios');
 };
+
+exports.formEditar = async (req, res) => {
+  const servicio = await Servicio.findById(req.params.id);
+  res.render('pages/editarservicio', { servicio });
+};
+
+exports.guardarEdicion = async (req, res) => {
+  await Servicio.findByIdAndUpdate(req.params.id, req.body);
+  res.redirect('/servicios');
+};
+
+exports.formulario = async (req, res) => {
+  res.render('pages/registrarservicio');
+};

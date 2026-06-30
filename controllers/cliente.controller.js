@@ -49,3 +49,18 @@ exports.home = async (req, res) => {
 exports.formulario = async (req, res) => {
   res.render('pages/registrarcliente');
 };
+
+exports.formEditar = async (req, res) => {
+  const cliente = await Cliente.findById(req.params.id);
+  res.render('pages/editarcliente', { cliente });
+};
+
+exports.guardarEdicion = async (req, res) => {
+  await Cliente.findByIdAndUpdate(req.params.id, {
+    nombre: req.body.nombre,
+    email: req.body.email,
+    telefono: req.body.telefono
+  });
+
+  res.redirect('/clientes');
+};

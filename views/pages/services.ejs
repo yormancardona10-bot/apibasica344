@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include('../partials/head'); %>
 </head>
+
 <body class="container">
 
     <header>
@@ -12,27 +14,82 @@
     <main>
         <div>
             <h1>Servicios</h1>
-            <table id="tabla">
+
+            <table id="tabla" class="table table-striped">
                 <thead>
                     <tr>
                         <th>Nombre</th>
                         <th>Precio</th>
-                        <th>Duracion (minutos)</th>
+                        <th>Duración (minutos)</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     <% servicios.forEach(function(servicio) { %>
                         <tr>
-                            <td><%= servicio.nombre %></td>
-                            <td><%= servicio.precio %></td>
-                            <td><%= servicio.duracionMinutos %></td>
                             <td>
-                                <a href="/servicios/editar/<%= servicio._id %>" class="btn btn-warning btn-sm">Editar</a>
-                                <button class="btn btn-danger btn-sm" onclick="eliminar('/servicios/<%= servicio._id %>')">Eliminar</button>
+                                <%= servicio.nombre %>
+                            </td>
+                            <td>
+                                <%= servicio.precio %>
+                            </td>
+                            <td>
+                                <%= servicio.duracionMinutos %>
+                            </td>
+
+                            <td>
+                                <a href="/servicios/editar/<%= servicio._id %>" class="btn btn-warning btn-sm">
+                                    Editar
+                                </a>
+
+                                <a href="/servicios/eliminar/<%= servicio._id %>" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('¿Deseas eliminar este servicio?')">
+                                    Eliminar
+                                </a>
+
+                                <button data-bs-toggle="modal" data-bs-target="#detalleServicio<%= servicio._id %>">
+                                    Ver detalle
+                                </button>
                             </td>
                         </tr>
-                    <% }); %>
+                        <div class="modal fade" id="detalleServicio<%= servicio._id %>" tabindex="-1">
+
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">
+                                            Detalle del Servicio
+                                        </h5>
+
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                        </button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <p><strong>Nombre:</strong>
+                                            <%= servicio.nombre %>
+                                        </p>
+                                        <p><strong>Precio:</strong>
+                                            <%= servicio.precio %>
+                                        </p>
+                                        <p><strong>Duración:</strong>
+                                            <%= servicio.duracionMinutos %> minutos
+                                        </p>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" data-bs-dismiss="modal">
+                                            Cerrar
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <% }); %>
                 </tbody>
             </table>
         </div>
@@ -41,6 +98,7 @@
     <footer>
         <%- include('../partials/footer'); %>
     </footer>
-<a href="/servicios/eliminar/<%= servicio._id %>" class="btn btn-danger btn-sm">Eliminar</a>
+
 </body>
+
 </html>
